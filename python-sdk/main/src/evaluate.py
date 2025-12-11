@@ -12,6 +12,26 @@ from nuscenes.prediction import PredictHelper
 from nuscenes.eval.prediction.config import load_prediction_config
 from nuscenes.eval.prediction.compute_metrics import compute_metrics
 
+def load_model(model, optimizer, filename="mtp_model.pth", device="cpu"):
+    """
+    Carga un modelo desde python-sdk/main/models/{filename}
+    """
+    base_dir = os.path.dirname(os.path.dirname(__file__))  # -> python-sdk
+    models_dir = os.path.join(base_dir, "main", "models")
+    load_path = os.path.join(models_dir, filename)
+
+    checkpoint = torch.load(load_path, map_location=device)
+
+    model.load_state_dict(checkpoint["model_state_dict"])
+    optimizer.load_state_dict(checkpoint["optimizer_state_dict"])
+
+    epoch = checkpoint.get("epoch", None)
+
+    print(f"📂 Modelo cargado desde: {load_path}")
+    print(f"🔄 Última epoch entrenada: {epoch}")
+
+    return model, optimizer, epoch
+
 
 def evaluate_submission(version, dataroot, submission_path,
                         config_name="predict_2020_icra.json",
