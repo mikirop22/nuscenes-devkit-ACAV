@@ -87,3 +87,31 @@ Aquesta versió del model inclou les següents millores addicionals, centrades e
 * **Soft Classification amb Divergència KL:**
     * *Abans:* S'utilitzava *Cross Entropy* amb una assignació dura (*Hard Assignment*). El model només rebia feedback positiu per a un sol mode (el millor) i negatiu per a tots els altres, encara que un segon mode fos gairebé perfecte.
     * *Ara:* Implementem **`F.kl_div`** (Kullback-Leibler Divergence) amb *Soft Targets*. Calculem la distribució objectiu mitjançant un `softmax` negatiu de l'error total (`mode_target = F.softmax(-total_mode_error)`). Això ensenya al model a assignar probabilitats altes a totes les trajectòries plausibles, no només a una, gestionant millor la incertesa multimodal.
+
+
+## model_transformer_3.pth
+
+Aquesta versió del model inclou les següents millores addicionals:
+
+* **Incorporació dels anchors en les modes del model:** Ara el model té una funció per cada mode basada en els anchors predefinits, millorant la diversitat i precisió de les prediccions multimodals.
+
+
+## model_transformer_4.pth
+
+Aquesta versió del model inclou les següents millores addicionals:
+
+* **Ús d'anchors dinàmics basats en K-Means per a cada mostra:** En lloc d'utilitzar un conjunt fix d'anchors per a totes les mostres, ara es generen anchors personalitzats per a cada exemple utilitzant K-Means clustering i un ajust d'aquests valors depenent de l'estat actual de l'agent (la velocitat o direcció o distància recorreguda). Això permet al model adaptar-se millor a la variabilitat de les trajectòries reals dels agents.
+
+
+## model_transformer_5.pth
+
+Aquesta versió del model inclou les següents millores addicionals:
+
+* **Correcció de la imatge BEV per a l'alineació amb els vectors de l'agent:** Ara la imatge BEV s'ha rotat -90 graus per assegurar que l'eix X+ de la imatge coincideixi amb la direcció cap endavant de l'agent. Això millora la coherència entre les dades d'entrada i les trajectòries previstes pel model.
+
+
+## model_transformer_6.pth
+
+Aquesta versió del model inclou les següents millores addicionals:
+
+* **Criterion amb pes més alt per a la classificació:** S'ha augmentat el pes de la pèrdua de classificació dins del `MultiModalTrajectoryLoss`, donant més importància a la correcta assignació de probabilitats als modes predits pel model. Això ajuda a millorar la precisió global de les prediccions multimodals.
