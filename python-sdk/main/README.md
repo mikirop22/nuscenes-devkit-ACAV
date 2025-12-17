@@ -115,3 +115,10 @@ Aquesta versió del model inclou les següents millores addicionals:
 Aquesta versió del model inclou les següents millores addicionals:
 
 * **Criterion amb pes més alt per a la classificació:** S'ha augmentat el pes de la pèrdua de classificació dins del `MultiModalTrajectoryLoss`, donant més importància a la correcta assignació de probabilitats als modes predits pel model. Això ajuda a millorar la precisió global de les prediccions multimodals.
+
+
+## model_transformer_7.pth
+
+Aquesta versió del model inclou les següents millores addicionals:
+
+* **Añadir més capes semàntiques a la imatge BEV d'entrada:** S'han incorporat capes addicionals que representen elements com carreteres, voreres i senyals de trànsit. Aquesta informació enriquida proporciona al model un context més complet sobre l'entorn, millorant la seva capacitat per predir trajectòries realistes i segures.
